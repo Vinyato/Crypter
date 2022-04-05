@@ -142,5 +142,6 @@ def decrypt():
     output_text.insert(1.0, ''.join(result))
     output_text['state'] = 'disabled'
 
+
 if __name__ == '__main__':
     tkinter()
