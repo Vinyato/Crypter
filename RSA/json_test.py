@@ -5,4 +5,4 @@ with open('test.json', 'w') as f:
 
 with open('test.json', 'r') as f:
     f = json.load(f)
-    print(f)
+
