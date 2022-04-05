@@ -9,13 +9,13 @@ def tkinter():
     # Creating GUI
     global entry_line, output_text
     window = Tk()
-    window.title('Криптер')
+    window.title('Crypter')
 
     entry_tip = Label(text='Текст: ')
     entry_tip.grid(column=0, row=0)
 
     entry_line = Text(width=40, height=10)
-    entry_line.grid(column=1, row=0, columnspan=3)
+    entry_line.grid(column=1, row=0, columnspan=3, padx=20, pady=20)
 
     encrypt_btn = Button(text='Шифровать', command=encrypt)
     encrypt_btn.grid(row=2, column=1, sticky=E)
@@ -26,9 +26,11 @@ def tkinter():
     out_label = Label(text='Вывод дешифрованного сообщения: ')
     out_label.grid(row=4, column=0, sticky=E, columnspan=2)
 
-    output_text = Label()
-    output_text.grid(row=5, column=1, columnspan=3)
+    output_text = Text(width=40, height=10, wrap=WORD)
+    output_text.grid(row=5, column=1, columnspan=3, pady=20)
 
+
+    entry_line.focus()
     window.mainloop()
 
 
@@ -100,7 +102,6 @@ def encrypt():
         else:
             result.append(sub_result)
             sub_result = ''
-    print('=='.join(result).encode("utf-8").decode("utf-8"))
     file[hex_sum("==".join(result))] = ['=='.join(result), p, q]
     with open('log.json', 'w') as f:
         f.write(json.dumps(file))
@@ -136,10 +137,10 @@ def decrypt():
 
         else:
             result.append(s[pow(int(sub_result), d, n)])
-            print(sub_result)
-
-    print(''.join(result))
-    output_text['text']=''.join(result)
+    output_text['state'] = 'normal'
+    output_text.delete(1.0, END)
+    output_text.insert(1.0, ''.join(result))
+    output_text['state'] = 'disabled'
 
 if __name__ == '__main__':
     tkinter()
